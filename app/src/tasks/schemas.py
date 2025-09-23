@@ -10,6 +10,7 @@ class TaskIn(BaseModel):
     params: Annotated[dict, Field(description="Task parametrs in dictionary")]
 
 class Task(TaskIn):
+    customer: Annotated[str, Field(description="Customer who created task")]
     created_at: Annotated[datetime, Field(default_factory=datetime.now, description="UTC timestamp of create task")]
 
     @property
@@ -18,5 +19,4 @@ class Task(TaskIn):
     
 
 class RequestTask(BaseModel):
-    executor: Annotated[str, Field(description="Id or Name of executor for task")]
     timeout: Annotated[int, Field(description="Timeout for waiting task")]

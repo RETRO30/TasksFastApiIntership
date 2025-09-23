@@ -1,9 +1,10 @@
+import redis.asyncio as aioredis 
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import (
     RedisDsn,
     Field
 )
-import redis.asyncio as aioredis 
 
 
 class AuthSettings(BaseSettings):
@@ -13,7 +14,8 @@ class AuthSettings(BaseSettings):
 
     secret_key: str
     expire_minutes: int = 30
-    
+
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=".env",
@@ -26,12 +28,10 @@ class Settings(BaseSettings):
     redis_url: RedisDsn
     auth: AuthSettings = Field(default_factory=AuthSettings)
 
-    
-
-
 
 settings = Settings()
 redis_client = aioredis.from_url(str(settings.redis_url), decode_responses=True)
+
 
 if __name__ == "__main__":
     print(settings)
