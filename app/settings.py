@@ -24,7 +24,6 @@ class Settings(BaseSettings):
         env_prefix="API__",
     )
 
-    debug: bool
     redis_url: RedisDsn
     auth: AuthSettings = Field(default_factory=AuthSettings)
 

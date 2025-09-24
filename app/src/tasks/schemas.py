@@ -16,7 +16,3 @@ class Task(TaskIn):
     @property
     def is_expired(self) -> bool:
         return datetime.now() > self.created_at + timedelta(seconds=self.timeout)
-    
-
-class RequestTask(BaseModel):
-    timeout: Annotated[int, Field(description="Timeout for waiting task")]
